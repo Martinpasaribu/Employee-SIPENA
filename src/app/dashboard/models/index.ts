@@ -1,18 +1,26 @@
 
 
-export interface Division_keys {
-    _id : string,
-    code : string,
-    name : string,
+
+
+export interface Items {
+    
+    _id: string;
+    facility_key: string;
+    name: string;
+    nup: string;
+    qty: number;
+    desc: string;
+    division_key: string;
+    status: "A" | "R" | "B" ; // A ; available, R : Repair, T : tidak digunakan
+    isDeleted: boolean;
 
 }
-
 export interface Report{
     _id: string,
     report_code: string,
     employee_key: string,
     facility_key: string,
-    division_key: Division_keys,
+    division_key: Division,
     repair : IRepair,
     report_type: "BK" | "M" | "BL";
     broken_type: "R" | "S" | "B";
@@ -41,10 +49,14 @@ export interface Division {
     createAt : number;
     creatorId: string;
     employee_key: Employee [];    
+    item_key: Items [];    
 }
 
 
-interface Division_key {
+export interface Division_key {
+    name: string;
+    code: string;
+    item_key: never[];
     _id : Division
 }
 
@@ -64,6 +76,24 @@ export interface Employee  {
     creatorId: string;    
     
 }
+
+export interface EmployeeMappingAddReport  {
+
+    _id: string;
+    status: 'A' | 'B' | 'P';
+    division_key: Division[] | [];
+    user_id : string
+    username : string;
+    password: string;
+    email : string;
+    phone : number;
+    role: 'E' | 'H1' | 'H2';
+    refresh_token: string;
+    createAt : number;
+    creatorId: string;    
+    
+}
+
 export interface Facility {
     _id:string;
     name: string;

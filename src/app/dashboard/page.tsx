@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -6,11 +7,10 @@ import { User, Plus } from "lucide-react";
 import AddReportModal from "./components/AddReportModal";
 import { authService } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import { Employee } from "./models";
-import { formatDate } from "./function";
+import { Employee, EmployeeMappingAddReport } from "./models";
 import GreetingSkeleton from "./components/skeletons/GreetingSkeleton";
 import ReportListSkeleton from "./components/skeletons/ReportListSkeleton";
-import { getReportCustomer, updateBookingStatus } from "./service/services_report";
+import { getReportCustomer } from "./service/services_report";
 import ReportList from "./components/ReportList";
 import FacilityList from "./components/FacilityList";
 import { useToast } from "@/components/ToastContect";
@@ -56,18 +56,6 @@ export default function CustomerPage() {
     fetchData();
   }, [fetchData]);
 
-  const handleUpdateStatus = async (status: string) => {
-    setLoading(true);
-    try {
-      await updateBookingStatus(user ? user._id : '', status);
-      await fetchData();
-      showToast("success", "Status pengajuan keluar berhasil diajukan!");
-    } catch (err) {
-      showToast("error", `Gagal update status: ${err}`);
-      console.error("Gagal update status:", err);
-      setLoading(false);
-    }
-  };
 
   const handleReportAdded = async () => {
     setShowModal(false);
@@ -102,14 +90,23 @@ export default function CustomerPage() {
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <div className="text-left">
               <p className="text-xs sm:text-sm opacity-80">Divisi</p>
-              <p className="text-base sm:text-lg font-semibold text-green-100">
-                {user?.division_key[0]._id.code}
-              </p>
+              <div className="text-base sm:text-lg font-semibold text-green-100">
+                {/* {user?.division_key[0].code} */}
+                {user?.division_key.map((item: any, index: number) => (
+                  
+
+                    <p key={index}>
+                        {item?.code}
+                    </p>
+
+                ))}
+
+              </div>
             </div>
             <div className="text-left">
               <p className="text-xs sm:text-sm opacity-80">Report</p>
               <p className="text-base sm:text-lg font-semibold text-green-100">
-                {user?.division_key[0]._id.code}
+                {reports.length}
               </p>
             </div>
             {/* Bisa ditambahkan card info lain */}
@@ -163,7 +160,7 @@ export default function CustomerPage() {
             />
         )}
         
-        {/* <FacilityList user={user} /> */}
+        <FacilityList division={user?.division_key || []} />
 
       </div>
 
@@ -182,7 +179,7 @@ export default function CustomerPage() {
 
       <AddReportModal
         show={showModal}
-        user={user as Employee}
+        user={user as EmployeeMappingAddReport}
         onClose={() => setShowModal(false)}
         update={handleReportAdded}
       />

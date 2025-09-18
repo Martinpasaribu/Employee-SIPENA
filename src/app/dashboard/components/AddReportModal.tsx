@@ -4,21 +4,21 @@
 
 import { useState, useEffect } from "react";
 import { addReport, GetFacilityCode } from "../service/services_report";
-import { Division_keys, Employee, Facility } from "../models";
+import { EmployeeMappingAddReport, Facility } from "../models";
 import { useToast } from "@/components/ToastContect";
 
 interface AddReportModalProps {
   show: boolean;
   onClose: () => void;
   update: () => void;
-  user: Employee;
+  user: EmployeeMappingAddReport;
 }
 
 // Definisikan tipe data untuk form
 interface ReportForm {
   employee_key: string;
   facility_key: string;
-  division_key: Division_keys; // Ubah tipe data di sini
+  division_key: { _id: string; name: string; code: string }; // ✅ tunggal, sesuai Report model
   report_type: string;
   broken_type: string;
   complain_des: string;
@@ -26,21 +26,29 @@ interface ReportForm {
   image: File | null;
 }
 
+
 export default function AddReportModal({ show, onClose, update, user }: AddReportModalProps) {
   const { showToast } = useToast();
 
 // Perbarui state awal
-const [form, setForm] = useState<ReportForm>({
-  employee_key: user?._id || "",
-  facility_key: "",
-  // Inisialisasi division_key sebagai objek
-  division_key: user?.division_key?.[0]?._id || { _id: "", name: "", code: "" }, 
-  report_type: "BK",
-  broken_type: "",
-  complain_des: "",
-  broken_des: "",
-  image: null,
-});
+  const [form, setForm] = useState<ReportForm>({
+    employee_key: user?._id || "",
+    facility_key: "",
+    division_key: user?.division_key?.[0]
+      ? {
+          _id: user.division_key[0]._id,
+          name: user.division_key[0].name,
+          code: user.division_key[0].code,
+        }
+      : { _id: "", name: "", code: "" },
+    report_type: "BK",
+    broken_type: "",
+    complain_des: "",
+    broken_des: "",
+    image: null,
+  });
+
+
   const [facility, setFacility] = useState<Facility[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -88,21 +96,20 @@ const [form, setForm] = useState<ReportForm>({
   };
 
 const handleDivisionChange = (id: string) => {
-  const selectedDivision = user.division_key?.find(
-    (divWrapper) => divWrapper._id._id === id
-  )?._id;
-
-  if (selectedDivision) {
+  const selected = user.division_key?.find((div) => div._id === id);
+  if (selected) {
     setForm((prev) => ({
       ...prev,
       division_key: {
-        _id: selectedDivision._id,
-        name: selectedDivision.name,
-        code: selectedDivision.code,
+        _id: selected._id,
+        name: selected.name,
+        code: selected.code,
       },
     }));
   }
 };
+
+
 
 
 const handleSubmit = async () => {
@@ -114,9 +121,8 @@ const handleSubmit = async () => {
     formData.append("employee_key", form.employee_key);
 
     // Kirim semua data division
-    formData.append("division_key[_id]", form.division_key._id);
-    formData.append("division_key[name]", form.division_key.name);
-    formData.append("division_key[code]", form.division_key.code);
+    formData.append("division_key", form.division_key._id);
+
 
     if (form.report_type !== "K") {
       formData.append("broken_type", form.broken_type);
@@ -241,22 +247,25 @@ const handleSubmit = async () => {
               <label className="block mb-2 text-sm font-medium text-gray-700">
                 Pilih Divisi
               </label>
+
               <select
                 className="w-full border rounded-lg p-2 mb-3 text-gray-600"
-                value={form.division_key._id || ""} // Ubah di sini
+                value={form.division_key._id}
                 onChange={(e) => handleDivisionChange(e.target.value)}
               >
                 <option value="">-- Pilih Divisi --</option>
-                {user.division_key?.map((divWrapper) => (
+                {user.division_key?.map((div) => (
                   <option
-                    key={divWrapper._id._id}
-                    value={divWrapper._id._id}
-                    className={!divWrapper._id.status ? "text-gray-400" : ""}
+                    key={div._id}
+                    value={div._id}
+                    className={!div.status ? "text-gray-400" : ""}
                   >
-                    {divWrapper._id.code} {divWrapper._id.name}
+                    {div.code} {div.name}
                   </option>
                 ))}
               </select>
+
+
 
               {/* Penjelasan Kerusakan */}
               <label className="block mb-2 text-sm font-medium text-gray-700">

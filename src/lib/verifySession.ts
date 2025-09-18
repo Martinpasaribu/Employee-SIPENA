@@ -1,4 +1,4 @@
-import { BaseURL } from '@/utils/baseURL'
+import { BaseURL } from '@/utils/BaseURL'
 import { NextRequest } from 'next/server'
 
 export async function verifySession(req: NextRequest): Promise<boolean> {

@@ -1,9 +1,9 @@
 // lib/api.ts
+import { BaseURL02 } from '@/utils/BaseURL';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000', // Ganti sesuai base URL backend kamu
+  baseURL: BaseURL02, // Ganti sesuai base URL backend kamu
   withCredentials: true, // Agar cookie HttpOnly ikut dikirim
 });
 

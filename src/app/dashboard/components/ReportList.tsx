@@ -65,9 +65,9 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
           <div className="mb-4 block md:hidden">
             <button
               onClick={() => setShowFilterModal(true)}
-              className="flex items-center px-2 py-2 bg-gray-200 text-gray-700 rounded-lg shadow hover:bg-gray-300 transition w-full justify-center"
+              className="flex items-center px-2 py-2 bg-gray-800 text-gray-700 rounded-lg shadow hover:bg-gray-300 transition w-full justify-center"
             >
-              <Filter size={18} className="text-gray-500"/>
+              <Filter size={18} className="text-gray-50"/>
             </button>
           </div>
         </div>
