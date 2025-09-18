@@ -1,6 +1,6 @@
 // utils/http.ts
 import axios from "axios";
-import { BaseURL } from "./baseURL";
+import { BaseURL } from "./BaseURL";
 
 const http = axios.create({
   baseURL: BaseURL, // sesuaikan endpoint backend kamu

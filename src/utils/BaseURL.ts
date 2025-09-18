@@ -1,4 +1,4 @@
 
 
-export const BaseURL = 'http://localhost:5000/app/v1'
-// export const baseURL = 'https://server-itr.vercel.app/api/v1'
+// export const BaseURL = 'http://localhost:5000/api/v1'
+export const BaseURL = 'https://server-itr.vercel.app/api/v1'

@@ -80,43 +80,54 @@ export default function CustomerPage() {
       <Header />
       {/* Greeting Card */}
       {loading ? <GreetingSkeleton /> : (
-        <section className="bg-gradient-to-br from-green-700 to-green-800 text-white rounded-xl shadow p-5 sm:p-6 mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-white text-green-800 p-3 rounded-full w-12 h-12 flex items-center justify-center">
-                <User size={28} />
-              </div>
-              <div>
-                <h2 className="text-base sm:text-lg font-semibold">
-                  Halo, {user?.username} 👋
-                </h2>
-                <p className="text-sm opacity-90 leading-snug">
-                  Senang melihat Anda kembali. Semoga harimu menyenangkan!
-                </p>
-              </div>
+
+      <section className="bg-gradient-to-r from-green-700 via-green-800 to-green-900 text-white rounded-2xl shadow-lg p-5 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
+          {/* Left - User Info */}
+          <div className="flex items-center gap-4">
+            <div className="bg-white/90 text-green-800 p-3 rounded-full w-14 h-14 flex items-center justify-center shadow-md">
+              <User size={30} />
             </div>
-            <div className="p-2 flex flex-col gap-2">
-              <div className="flex gap-2">
-                <div className="text-left sm:text-left">
-                  <p className="text-xs sm:text-sm opacity-80">Divisi</p>
-                  <p className="text-md sm:text-xl font-bold">{user?.division_key[0]._id.code}</p>
-                </div>
-                {/* <div className="text-left sm:text-left">
-                  <p className="text-xs sm:text-sm opacity-80">Tagihan</p>
-                  <p className="text-md sm:text-xl font-bold">{user?.bill_status}</p>
-                </div> */}
-              </div>
-              {/* <div className="text-left sm:text-left">
-                <p className="text-xs sm:text-sm opacity-80">Masuk</p>
-                <p className="text-md sm:text-xl font-bold">{formatDate(user?.checkIn, true)}</p>
-              </div> */}
+            <div>
+              <h2 className="text-lg sm:text-xl font-bold tracking-tight">
+                Halo, {user?.username} 👋
+              </h2>
+              <p className="text-sm sm:text-base opacity-90 leading-snug">
+                Senang melihat Anda kembali. Semoga harimu menyenangkan!
+              </p>
             </div>
           </div>
-        </section>
+
+          {/* Right - Additional Info */}
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <div className="text-left">
+              <p className="text-xs sm:text-sm opacity-80">Divisi</p>
+              <p className="text-base sm:text-lg font-semibold text-green-100">
+                {user?.division_key[0]._id.code}
+              </p>
+            </div>
+            <div className="text-left">
+              <p className="text-xs sm:text-sm opacity-80">Report</p>
+              <p className="text-base sm:text-lg font-semibold text-green-100">
+                {user?.division_key[0]._id.code}
+              </p>
+            </div>
+            {/* Bisa ditambahkan card info lain */}
+            {/* <div className="text-left">
+              <p className="text-xs sm:text-sm opacity-80">Tagihan</p>
+              <p className="text-base sm:text-lg font-semibold text-green-100">
+                {user?.bill_status}
+              </p>
+            </div> */}
+          </div>
+        </div>
+      </section>
+
+
       )}
 
       <div className="flex gap-2">
-        <div className="mb-6">
+        <div className="mb-2">
           <button
             onClick={() => setShowModal(true)}
             className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg shadow hover:bg-gray-950 transition w-full sm:w-auto justify-center"
@@ -152,7 +163,8 @@ export default function CustomerPage() {
             />
         )}
         
-        <FacilityList user={user} />
+        {/* <FacilityList user={user} /> */}
+
       </div>
 
       {previewImage && (

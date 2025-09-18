@@ -1,7 +1,7 @@
 // lib/auth.ts
 
 import { Employee } from "@/app/dashboard/models";
-import { BaseURL } from "@/utils/baseURL";
+import { BaseURL } from "@/utils/BaseURL";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 

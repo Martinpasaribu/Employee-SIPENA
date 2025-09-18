@@ -57,7 +57,7 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
       {/* 🔹 Kontainer sticky untuk header dan filter */}
       <div className="sticky top-0 z-10 bg-gray-50 pt-8 pb-2">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
             Daftar Report
           </h3>
           
@@ -67,7 +67,7 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
               onClick={() => setShowFilterModal(true)}
               className="flex items-center px-2 py-2 bg-gray-200 text-gray-700 rounded-lg shadow hover:bg-gray-300 transition w-full justify-center"
             >
-              <Filter size={18} />
+              <Filter size={18} className="text-gray-500"/>
             </button>
           </div>
         </div>
