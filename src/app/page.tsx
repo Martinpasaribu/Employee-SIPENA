@@ -41,12 +41,12 @@ export default function Home() {
         >
           Daftar
         </Link> */}
-        <Link
+        {/* <Link
           href="/booking"
           className="px-6 py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold rounded-lg transition"
         >
           Fasilitas
-        </Link>
+        </Link> */}
       </div>
 
       {/* Gambar Hero */}

@@ -74,7 +74,7 @@ export const Progress = (status: string) => {
       };
     case "T":
       return {
-        label: "Di Tolak",
+        label: "Ditolak",
         className: "bg-red-100 text-red-700",
       };
     case "RU":
