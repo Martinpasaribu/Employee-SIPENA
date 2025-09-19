@@ -82,7 +82,7 @@ export default function CustomerPage() {
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
           
           {/* Left - User Info */}
-            <div className="flex flex-row lg:flex-col  justify-start items-start lg:justify-between lg:items-center gap-4">
+            <div className="flex flex-row lg:flex-col  lg:justify-start lg:items-start justify-between items-center gap-4">
               
               <div className="flex  gap-2">
                 <div className="bg-white text-indigo-600 p-3 rounded-full w-12 h-12 flex items-center justify-center">
