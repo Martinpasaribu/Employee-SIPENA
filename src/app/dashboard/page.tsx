@@ -57,6 +57,15 @@ export default function CustomerPage() {
   }, [fetchData]);
 
 
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      router.push("/login"); // Redirect ke halaman login setelah berhasil logout
+    } catch (error) {
+      console.error("Logout gagal:", error);
+    }
+  };
+
   const handleReportAdded = async () => {
     setShowModal(false);
     await fetchData();
@@ -71,20 +80,31 @@ export default function CustomerPage() {
 
       <section className="bg-gradient-to-r from-green-700 via-green-800 to-green-900 text-white rounded-2xl shadow-lg p-5 sm:p-6 lg:p-8 mb-6 sm:mb-8">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
+          
           {/* Left - User Info */}
-          <div className="flex items-center gap-4">
-            <div className="bg-white/90 text-green-800 p-3 rounded-full w-14 h-14 flex items-center justify-center shadow-md">
-              <User size={30} />
+            <div className="flex flex-col justify-start items-start gap-4">
+              
+              <div className="flex  gap-2">
+                <div className="bg-white text-indigo-600 p-3 rounded-full w-12 h-12 flex items-center justify-center">
+                  <User size={28} />
+                </div>
+                <div>
+                  <h2 className="text-base sm:text-lg font-semibold">
+                    Halo, {user?.username} 👋
+                  </h2>
+                  <p className="text-sm opacity-90 leading-snug">
+                    Senang melihat Anda kembali. Semoga harimu menyenangkan!
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-3 hidden md:flex" >
+                <button onClick={handleLogout} className="px-2 py-1 bg-white text-black rounded-md ">
+                  Keluar
+                </button>
+              </div>
+
             </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-bold tracking-tight">
-                Halo, {user?.username} 👋
-              </h2>
-              <p className="text-sm sm:text-base opacity-90 leading-snug">
-                Senang melihat Anda kembali. Semoga harimu menyenangkan!
-              </p>
-            </div>
-          </div>
 
           {/* Right - Additional Info */}
           <div className="flex flex-wrap gap-4 sm:gap-6">
