@@ -33,7 +33,7 @@ export const TypeReport = (status: string) => {
       };
     case "BK":
       return {
-        label: "Bangunan Lainya",
+        label: "Bangunan Kantor",
         className: "bg-yellow-100 text-yellow-700",
       };
     case "M":
