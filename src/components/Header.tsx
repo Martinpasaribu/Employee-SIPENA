@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu, X, User, Settings, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation"; // 🔹 Impor useRouter
 import { authService } from "@/lib/auth"; // 🔹 Impor authService
+import Link from "next/link";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,14 +54,18 @@ export default function HamburgerMenu() {
             </button>
           </div>
           <nav className="flex flex-col gap-4 text-center text-gray-700 w-full">
-            <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition">
+            {/* <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition">
               <User size={20} />
               Profil Saya
-            </a>
-            <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition">
-              <Settings size={20} />
-              Pengaturan
-            </a>
+            </a> */}
+
+            <Link href={'settings'}>
+              <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition">
+                <Settings size={20} />
+                Pengaturan
+              </div>
+            </Link>
+
             <a
               onClick={handleLogout} // 🔹 Panggil fungsi handleLogout saat diklik
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition text-red-600 hover:text-red-800 cursor-pointer" // 🔹 Tambahkan cursor-pointer

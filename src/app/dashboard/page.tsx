@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { User, Plus } from "lucide-react";
+import { User, Plus, Settings } from "lucide-react";
 import AddReportModal from "./components/AddReportModal";
 import { authService } from "@/lib/auth";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ import ReportList from "./components/ReportList";
 import FacilityList from "./components/FacilityList";
 import { useToast } from "@/components/ToastContect";
 import Header from "@/components/Header";
+import Link from "next/link";
 // 🔹 Impor Header jika Anda tetap ingin menggunakannya di sini,
 //    tetapi ini tidak sesuai dengan praktik terbaik yang kita diskusikan sebelumnya
 // import Header from "@/components/Header";
@@ -98,10 +99,18 @@ export default function CustomerPage() {
                 </div>
               </div>
 
-              <div className="mt-3 hidden md:flex" >
-                <button onClick={handleLogout} className="px-2 py-1 bg-white text-black rounded-md ">
-                  Keluar
-                </button>
+              <div className="flex mt-5 gap-2 justify-center items-center">
+                  <div className="hidden md:flex" >
+                    <button onClick={handleLogout} className="px-2 py-1 bg-white text-black rounded-md ">
+                      Keluar
+                    </button>
+                  </div>
+
+                  <Link href="/settings">
+                    <button className="p-2 hidden md:block hover:bg-gray-100 rounded-full transition">
+                      <Settings size={20} className="hover:text-gray-700 " />
+                    </button>
+                  </Link>
               </div>
 
             </div>
@@ -145,13 +154,21 @@ export default function CustomerPage() {
 
       <div className="flex gap-2">
         <div className="mb-2">
-          <button
-            onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg shadow hover:bg-gray-950 transition w-full sm:w-auto justify-center"
-          >
-            <Plus size={18} /> Buat Report
-          </button>
+          {loading ? (
+            <div className="flex items-center gap-2 px-4 py-2 bg-gray-300 rounded-lg animate-pulse w-36 h-10 justify-center">
+              <div className="w-5 h-5 bg-gray-400 rounded-full" />
+              <div className="w-20 h-4 bg-gray-400 rounded" />
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg shadow hover:bg-gray-950 transition w-full sm:w-auto justify-center"
+            >
+              <Plus size={18} /> Buat Report
+            </button>
+          )}
         </div>
+
         
         {/* <div className="mb-6">
           <button
