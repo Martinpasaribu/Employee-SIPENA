@@ -167,177 +167,179 @@ const handleSubmit = async () => {
 
   if (!show) return null;
 
-  return (
-    <>
-      <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50">
-        <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative">
-          <h2 className="text-lg font-semibold mb-7 text-gray-800 ">Tambah Report</h2>
+return (
+  <>
+    {/* Overlay */}
+    <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50 p-2 sm:p-4">
+      {/* Modal */}
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative max-h-[95vh] overflow-y-auto p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-5 text-gray-800">
+          Tambah Report
+        </h2>
 
-          {/* Tipe Report */}
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            Tipe Report
-          </label>
-          <select
-            value={form.report_type}
-            onChange={(e) => handleReportTypeChange(e.target.value)}
-            className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm placeholder-gray-200"
-          >
-            <option value="BK">Bangunan Kantor</option>
-            <option value="M">Mesin</option>
-            <option value="BL">Bangunan Lainnya</option>
-            <option value="K">Komplain</option>
-          </select>
+        {/* Tipe Report */}
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Tipe Report
+        </label>
+        <select
+          value={form.report_type}
+          onChange={(e) => handleReportTypeChange(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
+        >
+          <option value="BK">Bangunan Kantor</option>
+          <option value="M">Mesin</option>
+          <option value="BL">Bangunan Lainnya</option>
+          <option value="K">Komplain</option>
+        </select>
 
-          {/* Inputan berdasarkan Tipe Report */}
-          {form.report_type === "K" ? (
-            <>
-              <label className="block mb-2 text-sm font-medium text-gray-700">
-                Penjelasan Komplain
-              </label>
-              <textarea
-                value={form.complain_des}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, complain_des: e.target.value }))
-                }
-                className="w-full border rounded-lg p-2 mb-4 text-gray-700 placeholder-gray-400"
-                placeholder="Tuliskan keluhan atau komplain Anda..."
-              />
-            </>
-          ) : (
-            <>
-              {/* Tipe Kerusakan */}
-              <label className="block mb-2 text-sm font-medium text-gray-700">
-                Tipe Kerusakan
-              </label>
-              <select
-                value={form.broken_type}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, broken_type: e.target.value }))
-                }
-                className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
-              >
-                <option value="R">Ringan</option>
-                <option value="S">Sedang</option>
-                <option value="B">Berat</option>
-              </select>
-
-              {/* Select Facility */}
-              <label className="block mb-2 text-sm font-medium text-gray-700">
-                Pilih Fasilitas
-              </label>
-              <select
-                className="w-full border rounded-lg p-2 mb-3 text-gray-600"
-                value={form.facility_key}
-                onChange={(e) => setForm((prev) => ({ ...prev, facility_key: e.target.value }))}
-              >
-                <option value="">-- Pilih Fasilitas --</option>
-                {facility.map((r) => (
-                  <option
-                    key={r._id}
-                    value={r._id}
-                    disabled={!r.status}
-                    className={!r.status ? "text-gray-400" : ""}
-                  >
-                    {r.name} {!r.status && "(Ditutup)"}
-                  </option>
-                ))}
-              </select>
-
-              {/* Select Division */}
-              <label className="block mb-2 text-sm font-medium text-gray-700">
-                Pilih Divisi
-              </label>
-
-              <select
-                className="w-full border rounded-lg p-2 mb-3 text-gray-600"
-                value={form.division_key._id}
-                onChange={(e) => handleDivisionChange(e.target.value)}
-              >
-                <option value="">-- Pilih Divisi --</option>
-                {user.division_key?.map((div) => (
-                  <option
-                    key={div._id}
-                    value={div._id}
-                    className={!div.status ? "text-gray-400" : ""}
-                  >
-                    {div.code} {div.name}
-                  </option>
-                ))}
-              </select>
-
-
-
-              {/* Penjelasan Kerusakan */}
-              <label className="block mb-2 text-sm font-medium text-gray-700">
-                Penjelasan Kerusakan
-              </label>
-              <textarea
-                value={form.broken_des}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, broken_des: e.target.value }))
-                }
-                className="w-full border rounded-lg p-2 mb-4 text-gray-700 placeholder-gray-500"
-                placeholder="Deskripsi kerusakan..."
-              />
-            </>
-          )}
-
-          {/* Upload Gambar */}
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Upload Gambar
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="w-full border rounded-lg p-2 mb-2 text-gray-700"
-          />
-
-          {/* Preview Thumbnail */}
-          {previewUrl && (
-            <div className="mb-4">
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="w-20 h-20 object-cover rounded-lg cursor-pointer border"
-                onClick={() => setShowImageModal(true)}
-              />
-            </div>
-          )}
-
-          {/* Actions */}
-          <div className="flex justify-end gap-3 mt-4">
-            <button
-              onClick={onClose}
-              disabled={loading}
-              className="px-4 py-2 border rounded-lg hover:bg-gray-50 text-gray-700 disabled:opacity-50"
+        {/* Inputan berdasarkan Tipe Report */}
+        {form.report_type === "K" ? (
+          <>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Penjelasan Komplain
+            </label>
+            <textarea
+              value={form.complain_des}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, complain_des: e.target.value }))
+              }
+              className="w-full border rounded-lg p-2 mb-4 text-gray-700 placeholder-gray-400 text-sm"
+              placeholder="Tuliskan keluhan atau komplain Anda..."
+              rows={3}
+            />
+          </>
+        ) : (
+          <>
+            {/* Tipe Kerusakan */}
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Tipe Kerusakan
+            </label>
+            <select
+              value={form.broken_type}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, broken_type: e.target.value }))
+              }
+              className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
             >
-              Batal
-            </button>
-            <button
-              onClick={handleSubmit}
-              disabled={loading}
-              className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 disabled:opacity-50"
+              <option value="R">Ringan</option>
+              <option value="S">Sedang</option>
+              <option value="B">Berat</option>
+            </select>
+
+            {/* Select Facility */}
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Pilih Fasilitas
+            </label>
+            <select
+              className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
+              value={form.facility_key}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, facility_key: e.target.value }))
+              }
             >
-              {loading ? "Menyimpan..." : "Simpan"}
-            </button>
+              <option value="">-- Pilih Fasilitas --</option>
+              {facility.map((r) => (
+                <option
+                  key={r._id}
+                  value={r._id}
+                  disabled={!r.status}
+                  className={!r.status ? "text-gray-400" : ""}
+                >
+                  {r.name} {!r.status && "(Ditutup)"}
+                </option>
+              ))}
+            </select>
+
+            {/* Select Division */}
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Pilih Divisi
+            </label>
+            <select
+              className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
+              value={form.division_key._id}
+              onChange={(e) => handleDivisionChange(e.target.value)}
+            >
+              <option value="">-- Pilih Divisi --</option>
+              {user.division_key?.map((div) => (
+                <option key={div._id} value={div._id}>
+                  {div.code} {div.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Penjelasan Kerusakan */}
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Penjelasan Kerusakan
+            </label>
+            <textarea
+              value={form.broken_des}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, broken_des: e.target.value }))
+              }
+              className="w-full border rounded-lg p-2 mb-4 text-gray-700 placeholder-gray-500 text-sm"
+              placeholder="Deskripsi kerusakan..."
+              rows={3}
+            />
+          </>
+        )}
+
+        {/* Upload Gambar */}
+        <label className="block mb-2 text-sm font-medium text-gray-900">
+          Upload Gambar
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="w-full border rounded-lg p-2 mb-2 text-gray-700 text-sm"
+        />
+
+        {/* Preview Thumbnail */}
+        {previewUrl && (
+          <div className="mb-4">
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className="w-20 h-20 object-cover rounded-lg cursor-pointer border"
+              onClick={() => setShowImageModal(true)}
+            />
           </div>
+        )}
+
+        {/* Actions */}
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 mt-4">
+          <button
+            onClick={onClose}
+            disabled={loading}
+            className="w-full sm:w-auto px-4 py-2 border rounded-lg hover:bg-gray-50 text-gray-700 disabled:opacity-50 text-sm"
+          >
+            Batal
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="w-full sm:w-auto px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 disabled:opacity-50 text-sm"
+          >
+            {loading ? "Menyimpan..." : "Simpan"}
+          </button>
         </div>
       </div>
+    </div>
 
-      {/* Modal Preview Gambar */}
-      {showImageModal && previewUrl && (
-        <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-          onClick={() => setShowImageModal(false)}
-        >
-          <img
-            src={previewUrl}
-            alt="Full Preview"
-            className="max-w-full max-h-full rounded-lg shadow-lg"
-          />
-        </div>
-      )}
-    </>
-  );
+    {/* Modal Preview Gambar */}
+    {showImageModal && previewUrl && (
+      <div
+        className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2"
+        onClick={() => setShowImageModal(false)}
+      >
+        <img
+          src={previewUrl}
+          alt="Full Preview"
+          className="max-w-full max-h-full rounded-lg shadow-lg"
+        />
+      </div>
+    )}
+  </>
+);
+
 }
