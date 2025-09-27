@@ -84,7 +84,7 @@ export default function CustomerPage() {
       {/* Greeting Card */}
       {loading ? <GreetingSkeleton /> : (
 
-      <section className="bg-gradient-to-r from-green-700 via-green-800 to-green-900 text-white rounded-2xl shadow-lg p-5 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+      <section className="bg-gradient-to-r from-green-700 via-green-800 to-green-900 text-white rounded-2xl shadow-lg p-5 sm:p-6 mt-10 md:mt-0 lg:p-8 mb-6 sm:mb-8 ">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
           
           {/* Left - User Info */}

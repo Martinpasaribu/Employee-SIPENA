@@ -57,7 +57,7 @@ export default function FacilityList({ division }: FacilityListProps) {
                   {/* Tombol lihat hanya di mobile */}
                   <button
                     onClick={() => setSelectedDivision(div)}
-                    className="lg:hidden flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-sm"
+                    className="lg:hidden flex items-center gap-1 text-green-600 hover:text-green-800 text-sm"
                   >
                     <Eye className="w-4 h-4" />
                     Lihat
