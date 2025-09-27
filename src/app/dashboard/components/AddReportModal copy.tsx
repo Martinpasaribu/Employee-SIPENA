@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 // components/AddReportModal.tsx
 "use client";
@@ -13,7 +12,6 @@ interface AddReportModalProps {
   onClose: () => void;
   update: () => void;
   user: EmployeeMappingAddReport;
-  facilities: any[]
 }
 
 // Definisikan tipe data untuk form
@@ -29,7 +27,7 @@ interface ReportForm {
 }
 
 
-export default function AddReportModal({ show, onClose, update, user, facilities }: AddReportModalProps) {
+export default function AddReportModal({ show, onClose, update, user }: AddReportModalProps) {
   const { showToast } = useToast();
 
 // Perbarui state awal
@@ -50,12 +48,45 @@ export default function AddReportModal({ show, onClose, update, user, facilities
     image: null,
   });
 
-  const [facility, setFacility] = useState<any []>([]);
+
+  const [facility, setFacility] = useState<Facility[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showImageModal, setShowImageModal] = useState(false);
 
- 
+  // Efek samping untuk mengambil data fasilitas saat modal terbuka
+  useEffect(() => {
+    if (show) {
+      handleReportTypeChange(form.report_type);
+    }
+  }, [show, form.report_type]);
+
+  // Fetch facility saat tipe report berubah
+  const handleReportTypeChange = async (value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      employee_key: user?._id,
+      report_type: value,
+      // Reset broken_type, complain_des, dan broken_des berdasarkan report_type
+      broken_type: value === "K" ? "" : "R",
+      complain_des: value === "K" ? "" : "",
+      broken_des: value === "K" ? "" : "",
+      facility_key: "", // Reset facility_key
+    }));
+
+    // Panggil API facility berdasarkan report type, kecuali untuk "K" (Komplain)
+    if (value !== "K") {
+      try {
+        const res = await GetFacilityCode(value);
+        if (res.success && res.data) {
+          setFacility(res.data);
+        }
+      } catch (error) {
+        console.error("Gagal memuat data fasilitas:", error);
+      }
+    }
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -65,9 +96,8 @@ export default function AddReportModal({ show, onClose, update, user, facilities
   };
 
 const handleDivisionChange = (id: string) => {
-  const selected = facilities.find((div: any) => div._id === id);
+  const selected = user.division_key?.find((div) => div._id === id);
   if (selected) {
-    console.log("📦 Division selected:", selected);
     setForm((prev) => ({
       ...prev,
       division_key: {
@@ -76,7 +106,6 @@ const handleDivisionChange = (id: string) => {
         code: selected.code,
       },
     }));
-    setFacility(selected.items || []);
   }
 };
 
@@ -89,7 +118,7 @@ const handleSubmit = async () => {
 
     const formData = new FormData();
     formData.append("report_type", form.report_type);
-    formData.append("employee_key",  user?._id);
+    formData.append("employee_key", form.employee_key);
 
     // Kirim semua data division
     formData.append("division_key", form.division_key._id);
@@ -152,45 +181,16 @@ return (
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Pilih Division
         </label>
-
         <select
-          className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
-          value={form.division_key._id}
-          onChange={(e) => handleDivisionChange(e.target.value)}
+          value={form.report_type}
+          onChange={(e) => handleReportTypeChange(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
         >
-          <option value="">-- Pilih Divisi --</option>
-          {facilities?.map((f) => (
-            <option key={f._id} value={f._id}>
-              {f.code}
-            </option>
-          ))}
+          <option value="BK">Bangunan Kantor</option>
+          <option value="M">Mesin</option>
+          <option value="BL">Bangunan Lainnya</option>
+          <option value="K">Komplain</option>
         </select>
-
-        {/* Select Facility */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Pilih Fasilitas
-        </label>
-
-        <select
-          className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
-          value={form.facility_key || ""}
-          onChange={(e) =>
-            setForm((prev) => ({ ...prev, facility_key: e.target.value }))
-          }
-        >
-          <option value="">-- Pilih Fasilitas --</option>
-
-          {facility?.map((r: any) => (
-            <option
-              key={r.item?._id} // gunakan _id unik item
-              value={r.facility?.facility_key} // value: id facility-nya
-            >
-              {/* label tampilannya gabung item + category */}
-              {r.item?.name} — {r.facility?.name} ({r.facility?.category})
-            </option>
-          ))}
-        </select>
-
 
         {/* Inputan berdasarkan Tipe Report */}
         {form.report_type === "K" ? (
@@ -226,7 +226,46 @@ return (
               <option value="B">Berat</option>
             </select>
 
+            {/* Select Facility */}
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Pilih Fasilitas
+            </label>
+            <select
+              className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
+              value={form.facility_key}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, facility_key: e.target.value }))
+              }
+            >
+              <option value="">-- Pilih Fasilitas --</option>
+              {facility.map((r) => (
+                <option
+                  key={r._id}
+                  value={r._id}
+                  disabled={!r.status}
+                  className={!r.status ? "text-gray-400" : ""}
+                >
+                  {r.name} {!r.status && "(Ditutup)"}
+                </option>
+              ))}
+            </select>
 
+            {/* Select Division */}
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Pilih Divisi
+            </label>
+            <select
+              className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
+              value={form.division_key._id}
+              onChange={(e) => handleDivisionChange(e.target.value)}
+            >
+              <option value="">-- Pilih Divisi --</option>
+              {user.division_key?.map((div) => (
+                <option key={div._id} value={div._id}>
+                  {div.code} {div.name}
+                </option>
+              ))}
+            </select>
 
             {/* Penjelasan Kerusakan */}
             <label className="block mb-2 text-sm font-medium text-gray-700">

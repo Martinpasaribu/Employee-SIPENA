@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { FormatDateTime } from "@/utils/Format/date";
+import { FormatDate, FormatDateTime } from "@/utils/Format/date";
 import { IRepair } from "../models";
 
 interface Props {
@@ -19,10 +19,10 @@ export default function RepairModal({ show, repair, onClose }: Props) {
         {/* Header Modal */}
         <div className="pb-4 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-800">
-            Harga Perbaikan
+            Info Perbaikan
           </h2>
-          <p className="mt-2 text-xl font-bold text-gray-600">
-            Rp{repair?.price?.toLocaleString('id-ID') || '0'}
+          <p className="mt-2 text-md font-bold text-gray-600">
+            Biaya Rp {repair?.price?.toLocaleString('id-ID') || '0'}
           </p>
         </div>
 
@@ -43,7 +43,7 @@ export default function RepairModal({ show, repair, onClose }: Props) {
           </h3>
           
           <p className="mt-1 text-sm text-gray-700 whitespace-pre-line">
-            {FormatDateTime(repair?.createdAt ?? null) || "Tidak ada catatan perbaikan yang diberikan."}
+              {FormatDate(repair?.createdAt) || "Tidak ada catatan perbaikan yang diberikan."}
           </p>
 
         </div>

@@ -5,6 +5,7 @@
 export interface Items {
     
     _id: string;
+    code:string;
     facility_key: string;
     name: string;
     nup: string;
@@ -36,6 +37,18 @@ export interface IRepair {
     price : number,
     note: string,
     createdAt: Date
+}
+
+export interface facilities {
+        facility: string;
+        items: string;
+}
+export interface FacilityEmployee {
+    division : {
+        facility: string;
+        aset: string
+        items: string;
+    }
 }
 
 

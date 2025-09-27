@@ -59,16 +59,16 @@ export default function SettingsPage() {
         
 
   return (
-    <div className="min-h-screen p-10 bg-gray-50 text-gray-900">
-      <h1 className="text-3xl font-extrabold mb-10 tracking-tight text-left">
+    <div className="min-h-screen p-5 md:p-10 bg-gray-50 text-gray-900">
+      <h1 className="text-xl md:text-2xl font-extrabold mb-10 tracking-tight text-left">
         Settings
       </h1>
 
       {/* Admin Management */}
-      <div className="bg-white shadow-sm rounded-2xl p-8 mb-8 flex flex-col md:flex-row md:items-start gap-8">
+      <div className="bg-white shadow-sm rounded-2xl p-4 md:p-8 mb-8 flex flex-col md:flex-row md:items-start gap-8">
         {/* Profile Info */}
         <div className="flex-1">
-          <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+          <h2 className="text-md md:text-xl font-bold flex items-center gap-2 mb-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-indigo-500"
@@ -84,14 +84,14 @@ export default function SettingsPage() {
               />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            Admin Management
+            Employee Management
           </h2>
 
       {loading ? (
         
         <LoadingSpinner/>
       ): (
-          <div className="border border-gray-200 rounded-xl p-6 bg-gray-50">
+          <div className="border border-gray-200 rounded-xl p-2 md:p-6 bg-gray-50">
             <h3 className="text-lg font-semibold mb-4">Your Profile</h3>
             <div className="space-y-2 text-sm">
               <p>
@@ -131,7 +131,7 @@ export default function SettingsPage() {
         <div className="flex flex-col ">
 
           <div className="h-[3.5rem]">
-                <h1 className="text-lg font-bold text-slate-900"> Aksi</h1>
+                <h1 className="text-md md:text-lg font-bold text-slate-900"> Aksi</h1>
           </div>
 
           <div className="flex flex-col gap-4 w-full md:w-64">
@@ -157,7 +157,7 @@ export default function SettingsPage() {
             </button> */}
             <button
               onClick={() => setModalState("update")}
-              className="flex items-center justify-center gap-2 w-full bg-green-500 text-white px-4 py-3 rounded-xl font-semibold shadow hover:bg-green-600 transition"
+              className="text-sm md:text-md  flex items-center justify-center gap-2 w-full bg-green-600 text-white px-2 md:px-4 py-2 md:py-3 rounded-xl font-semibold shadow hover:bg-green-600 transition"
             >
               <Edit2 size={18} />
               Update Profile

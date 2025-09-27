@@ -38,3 +38,21 @@ export async function GetFacilityCode(category_id: string) {
     throw new Error(message);
   }
 }
+
+export async function GetIFacilityOnDivisionEmployee(id_employee: string) {
+
+  try {
+
+  const res = await http.get(`/employee/facility-on-division/${id_employee}`);
+    return res.data;
+  } catch (error: any) {
+    // Kalau pakai axios, biasanya response error ada di error.response.data
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      "Gagal GetI Facility On Divisi on Employee ";
+
+    // Lempar error biar ditangkap di handleSubmit
+    throw new Error(message);
+  }
+}

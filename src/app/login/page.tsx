@@ -109,7 +109,7 @@ export default function LoginPage() {
         </button>
 
         {/* Footer */}
-        <p className="text-sm text-center text-gray-500 mt-6">
+        {/* <p className="text-sm text-center text-gray-500 mt-6">
           Fasilitas tersedia?{" "}
           <a
             href="/booking"
@@ -117,7 +117,7 @@ export default function LoginPage() {
           >
             Fasilitas
           </a>
-        </p>
+        </p> */}
       </div>
     </div>
   );

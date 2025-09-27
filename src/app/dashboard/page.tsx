@@ -7,10 +7,10 @@ import { User, Plus, Settings } from "lucide-react";
 import AddReportModal from "./components/AddReportModal";
 import { authService } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import { Employee, EmployeeMappingAddReport } from "./models";
+import { Employee, EmployeeMappingAddReport, Facility, FacilityEmployee } from "./models";
 import GreetingSkeleton from "./components/skeletons/GreetingSkeleton";
 import ReportListSkeleton from "./components/skeletons/ReportListSkeleton";
-import { getReportCustomer } from "./service/services_report";
+import { GetIFacilityOnDivisionEmployee, getReportCustomer } from "./service/services_report";
 import ReportList from "./components/ReportList";
 import FacilityList from "./components/FacilityList";
 import { useToast } from "@/components/ToastContect";
@@ -22,6 +22,7 @@ import Link from "next/link";
 
 export default function CustomerPage() {
   const [user, setUser] = useState<Employee>();
+  const [facilities, setFacilities] = useState<any[]>();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [reports, setReports] = useState<any[]>([]);
@@ -42,8 +43,12 @@ export default function CustomerPage() {
       const profile = await authService.fetchProfile();
       if (profile?.username) {
         setUser(profile);
+
         const report = await getReportCustomer(profile._id);
         setReports(report);
+        
+        const FacilityEmployee = await GetIFacilityOnDivisionEmployee(profile._id);
+        setFacilities(FacilityEmployee.data.data.division);
       }
     } catch (error) {
       showToast("error", `Gagal mengambil data: ${error}`);
@@ -107,8 +112,8 @@ export default function CustomerPage() {
                   </div>
 
                   <Link href="/settings">
-                    <button className="p-2 hidden md:block hover:bg-gray-100 rounded-full transition">
-                      <Settings size={20} className="hover:text-gray-700 " />
+                    <button className="p-2 hidden md:block hover:bg-gray-100 hover:text-gray-700 rounded-full transition">
+                      <Settings size={20} className=" " />
                     </button>
                   </Link>
               </div>
@@ -216,6 +221,7 @@ export default function CustomerPage() {
 
       <AddReportModal
         show={showModal}
+        facilities={facilities || []}
         user={user as EmployeeMappingAddReport}
         onClose={() => setShowModal(false)}
         update={handleReportAdded}
