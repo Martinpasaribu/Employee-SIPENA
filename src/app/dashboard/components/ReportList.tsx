@@ -86,6 +86,7 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
             <option value="P">Proses</option>
             <option value="S">Selesai</option>
             <option value="T">Tolak</option>
+            <option value="RU">Review Ulang</option>
           </select>
 
           {/* Filter Broken Type */}
@@ -96,9 +97,9 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
             onChange={handleFilterChange}
           >
             <option value="">Semua Kerusakan</option>
-            <option value="SP">Sedikit Rusak</option>
-            <option value="R">Rusak</option>
-            <option value="SR">Sarana</option>
+            <option value="S">Sedang</option>
+            <option value="R">Ringan</option>
+            <option value="B">Berat</option>
           </select>
 
           {/* Filter Report Type */}
@@ -109,9 +110,9 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
             onChange={handleFilterChange}
           >
             <option value="">Semua Tipe Report</option>
-            <option value="FK">Fasilitas Kamar</option>
-            <option value="FU">Fasilitas Umum</option>
-            <option value="K">Kebersihan</option>
+            <option value="BL">Bangunan Lainnya</option>
+            <option value="M">Mesin</option>
+            <option value="BK">Bangunan Kantor</option>
           </select>
         </div>
       </div>

@@ -43,7 +43,7 @@ export default function AddReportModal({ show, onClose, update, user, facilities
           code: user.division_key[0].code,
         }
       : { _id: "", name: "", code: "" },
-    report_type: "BK",
+    report_type: "",
     broken_type: "",
     complain_des: "",
     broken_des: "",
@@ -117,8 +117,8 @@ const handleSubmit = async () => {
       employee_key: user?._id || "",
       facility_key: "",
       division_key: { _id: "", name: "", code: "" },
-      report_type: "BK",
-      broken_type: "",
+      report_type: "",
+      broken_type: "R",
       complain_des: "",
       broken_des: "",
       image: null,
@@ -171,25 +171,35 @@ return (
           Pilih Fasilitas
         </label>
 
+
         <select
           className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
           value={form.facility_key || ""}
-          onChange={(e) =>
-            setForm((prev) => ({ ...prev, facility_key: e.target.value }))
-          }
+          onChange={(e) => {
+            const selectedFacility = facility.find(
+              (r: any) => r.facility?.facility_key === e.target.value
+            );
+
+            if (selectedFacility) {
+              setForm((prev) => ({
+                ...prev,
+                facility_key: e.target.value,
+                report_type: selectedFacility.facility?.category || prev.report_type, // set report_type sesuai category
+              }));
+            }
+          }}
         >
           <option value="">-- Pilih Fasilitas --</option>
-
           {facility?.map((r: any) => (
             <option
-              key={r.item?._id} // gunakan _id unik item
-              value={r.facility?.facility_key} // value: id facility-nya
+              key={r.item?._id} 
+              value={r.facility?.facility_key}
             >
-              {/* label tampilannya gabung item + category */}
               {r.item?.name} — {r.facility?.name} ({r.facility?.category})
             </option>
           ))}
         </select>
+
 
 
         {/* Inputan berdasarkan Tipe Report */}

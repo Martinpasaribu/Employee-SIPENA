@@ -15,6 +15,7 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
   }
 
   return (
+
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10 bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-xl w-11/12 sm:w-auto max-w-sm relative">
         <button
@@ -34,11 +35,14 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
             value={filters.progress}
             onChange={onFilterChange}
           >
+            
             <option value="">Semua Progress</option>
             <option value="A">Antrian</option>
             <option value="P">Proses</option>
             <option value="S">Selesai</option>
             <option value="T">Tolak</option>
+            <option value="RU">Riview Ulang</option>
+
           </select>
 
           {/* Filter Broken Type */}
@@ -49,9 +53,9 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
             onChange={onFilterChange}
           >
             <option value="">Semua Kerusakan</option>
-            <option value="SP">Sedikit Rusak</option>
-            <option value="R">Rusak</option>
-            <option value="SR">Sarana</option>
+            <option value="R">Ringan</option>
+            <option value="S">Sedikit Rusak</option>
+            <option value="B">Berat</option>
           </select>
 
           {/* Filter Report Type */}
@@ -62,9 +66,9 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
             onChange={onFilterChange}
           >
             <option value="">Semua Tipe Report</option>
-            <option value="FK">Fasilitas Kamar</option>
-            <option value="FU">Fasilitas Umum</option>
-            <option value="K">Kebersihan</option>
+            <option value="BK">Bangunan Kantor</option>
+            <option value="M">Mesin</option>
+            <option value="BL">Bangunang Lainya</option>
           </select>
         </div>
       </div>

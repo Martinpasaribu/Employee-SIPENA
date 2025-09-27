@@ -28,7 +28,7 @@ export const TypeReport = (status: string) => {
   switch (status) {
     case "BL":
       return {
-        label: "Bangunan Kantor",
+        label: "Bangunan Lainnya",
         className: "bg-green-100 text-green-700",
       };
     case "BK":
