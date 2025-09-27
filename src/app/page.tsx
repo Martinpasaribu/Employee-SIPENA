@@ -96,12 +96,12 @@ export default function Home() {
         >
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 leading-snug">
             Selamat Datang di{" "}
-            <span className="text-green-700">SIPENA Pegawai</span>
+            <span className="text-green-700">SIPENA</span>
           </h1>
 
           <p className="text-gray-600 mt-4 text-lg">
             Sistem Informasi Pelaporan Pegawai Negeri Sidenreng Rappang.<br />
-            Lakukan pelaporan aktivitas harian dengan cepat, mudah, dan transparan.
+            Lakukan pelaporan Fasilitas harian dengan cepat, mudah, dan transparan.
           </p>
 
           <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
