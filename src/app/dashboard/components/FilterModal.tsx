@@ -41,7 +41,7 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
             <option value="P">Proses</option>
             <option value="S">Selesai</option>
             <option value="T">Tolak</option>
-            <option value="RU">Riview Ulang</option>
+            <option value="RU">Review Ulang</option>
 
           </select>
 
@@ -54,7 +54,7 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
           >
             <option value="">Semua Kerusakan</option>
             <option value="R">Ringan</option>
-            <option value="S">Sedikit Rusak</option>
+            <option value="S">Sedang</option>
             <option value="B">Berat</option>
           </select>
 
@@ -68,7 +68,7 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
             <option value="">Semua Tipe Report</option>
             <option value="BK">Bangunan Kantor</option>
             <option value="M">Mesin</option>
-            <option value="BL">Bangunang Lainya</option>
+            <option value="BL">Bangunan Lainnya</option>
           </select>
         </div>
       </div>

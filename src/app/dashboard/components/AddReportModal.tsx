@@ -231,6 +231,7 @@ return (
               }
               className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
             >
+              <option value="">-- Tipe Kerusakan --</option>
               <option value="R">Ringan</option>
               <option value="S">Sedang</option>
               <option value="B">Berat</option>
