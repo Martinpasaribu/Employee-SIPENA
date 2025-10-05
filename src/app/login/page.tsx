@@ -66,7 +66,7 @@ export default function LoginPage() {
           </label>
           <input
             type="text"
-            placeholder="Masukkan email atau user ID"
+            placeholder="Masukkan User ID"
             value={form.user_id}
             onChange={(e) =>
               setForm({ ...form, user_id: e.target.value })
