@@ -160,7 +160,7 @@ return (
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm sm:max-w-md lg:max-w-lg relative max-h-[90vh] overflow-y-auto p-3 md:p-6 sm:p-8">
         
         {/* Header Modal */}
-        <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
+        <div className="flex justify-between items-center border-b border-gray-100 pb-4 md:mb-6">
             <h2 className="text-md md:text-xl font-bold text-gray-800">
               Tambah Report
             </h2>
