@@ -193,14 +193,14 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
                 return (
                 <div
                     key={i}
-                    // Border top menggunakan warna indigo (konsisten)
-                    className="bg-white p-5 rounded-xl shadow-xl border-t-4 border-indigo-400/80 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 transform"
+                    // Border top menggunakan warna green (konsisten)
+                    className="bg-white p-5 rounded-xl shadow-xl border-t-4 border-green-400/80 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 transform"
                 >
                     {/* 1. HEADER CARD: Judul, Tipe & Kerusakan */}
                     <div className="flex items-start justify-between border-b border-gray-100 pb-3 mb-3 gap-2">
                         <div className="flex-1">
-                            {/* Warna Tipe Report menggunakan indigo (konsisten) */}
-                            <p className="text-xs text-indigo-600 font-bold uppercase tracking-widest">
+                            {/* Warna Tipe Report menggunakan green (konsisten) */}
+                            <p className="text-xs text-green-600 font-bold uppercase tracking-widest">
                             {TypeReport(r.report_type).label}
                             </p>
                             <p className="text-lg font-extrabold text-slate-700 leading-tight mt-1">
@@ -261,8 +261,8 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
                             {r.repair && (
                                 <button
                                     onClick={() => HandleRepairModal(r.repair)}
-                                    // Warna tombol detail perbaikan menggunakan indigo (konsisten)
-                                    className="p-2 rounded-full bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition-colors duration-200 shadow-sm active:scale-95"
+                                    // Warna tombol detail perbaikan menggunakan green (konsisten)
+                                    className="p-2 rounded-full bg-green-100 text-green-700 hover:bg-green-200 transition-colors duration-200 shadow-sm active:scale-95"
                                     title="Detail Perbaikan"
                                 >
                                     <Wrench size={16} />
