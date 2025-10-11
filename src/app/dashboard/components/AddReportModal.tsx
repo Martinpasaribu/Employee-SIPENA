@@ -161,7 +161,7 @@ return (
         
         {/* Header Modal */}
         <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
-            <h2 className="text-xl font-bold text-gray-800">
+            <h2 className="text-md md:text-xl font-bold text-gray-800">
               Tambah Report
             </h2>
             <button
