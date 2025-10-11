@@ -16,12 +16,20 @@ export interface Items {
     isDeleted: boolean;
 
 }
+export interface Review {
+    
+    stars:number;
+    message: string;
+    status: boolean;
+
+}
 export interface Report{
     _id: string,
     report_code: string,
     employee_key: string,
     facility_key: string,
     division_key: Division,
+    review: Review,
     repair : IRepair,
     report_type: "BK" | "M" | "BL";
     broken_type: "R" | "S" | "B";

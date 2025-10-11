@@ -27,7 +27,7 @@ export default function FacilityList({ division }: FacilityListProps) {
 
   return (
     <section className="w-full lg:w-[28rem] pt-4 space-y-6">
-      <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+      <h3 className="bg-white px-4 py-2 text-lg sm:text-xl font-bold text-gray-900">
         Fasilitas Divisi
       </h3>
 

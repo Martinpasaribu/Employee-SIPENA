@@ -149,57 +149,105 @@ return (
         </h2>
 
         {/* Tipe Report */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Pilih Division
-        </label>
 
-        <select
-          className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
-          value={form.division_key._id}
-          onChange={(e) => handleDivisionChange(e.target.value)}
-        >
-          <option value="">-- Pilih Divisi --</option>
-          {facilities?.map((f) => (
-            <option key={f._id} value={f._id}>
-              {f.code}
-            </option>
-          ))}
-        </select>
-
-        {/* Select Facility */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Pilih Fasilitas
-        </label>
+        {/* Jenis Report */}
+        <div className="mb-6">
 
 
-        <select
-          className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
-          value={form.facility_key || ""}
-          onChange={(e) => {
-            const selectedFacility = facility.find(
-              (r: any) => r.facility?.facility_key === e.target.value
-            );
+          {/* Tampilkan status jenis report */}
+          <div className="">
+            {form.report_type === "K" ? (
+              <div className="flex items-center gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
 
-            if (selectedFacility) {
-              setForm((prev) => ({
-                ...prev,
-                facility_key: e.target.value,
-                report_type: selectedFacility.facility?.category || prev.report_type, // set report_type sesuai category
-              }));
-            }
-          }}
-        >
-          <option value="">-- Pilih Fasilitas --</option>
-          {facility?.map((r: any) => (
-            <option
-              key={r.item?._id} 
-              value={r.facility?.facility_key}
+                <span className="font-medium">Jenis Report Sekarang :</span> Komplain
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-red-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+                <span className="font-medium">Jenis Report Sekarang :</span> Fasilitas
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            )}
+          </div>
+
+
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-start gap-3">
+            {/* <div>
+              <label className="block text-sm font-semibold text-gray-800">
+                Jenis Report
+              </label>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Pilih jenis laporan yang ingin Anda kirim.
+              </p>
+            </div> */}
+
+            {/* Tombol Komplain */}
+            <button
+              type="button"
+              onClick={() => {
+                setForm((prev) => ({
+                  ...prev,
+                  report_type: prev.report_type === "K" ? "" : "K", // toggle komplain
+                  complain_des: "",
+                  broken_des: "",
+                  broken_type: "",
+                  facility_key: "",
+                }));
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-sm focus:outline-none ${
+                form.report_type === "K"
+                  ? "bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
             >
-              {r.item?.name} — {r.facility?.name} ({r.facility?.category})
-            </option>
-          ))}
-        </select>
+              {form.report_type === "K" ? (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Batalkan Komplain
+                </>
+              ) : (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Buat Komplain
+                </>
+              )}
+            </button>
+          </div>
 
+
+        </div>
 
 
         {/* Inputan berdasarkan Tipe Report */}
@@ -220,38 +268,105 @@ return (
           </>
         ) : (
           <>
+
+            {/* Select Division */}
+            <div>
+
+              <label className="block mb-2 text-sm font-medium text-gray-700">
+                Pilih Division
+              </label>
+
+              <select
+                className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
+                value={form.division_key._id}
+                onChange={(e) => handleDivisionChange(e.target.value)}
+              >
+                <option value="">-- Pilih Divisi --</option>
+                {facilities?.map((f) => (
+                  <option key={f._id} value={f._id}>
+                    {f.code}
+                  </option>
+                ))}
+              </select>
+
+            </div>
+
+            {/* Select Facility */}
+            <div>
+
+              <label className="block mb-2 text-sm font-medium text-gray-700">
+                Pilih Fasilitas
+              </label>
+
+              <select
+                className="w-full border rounded-lg p-2 mb-3 text-gray-600 text-sm"
+                value={form.facility_key || ""}
+                onChange={(e) => {
+                  const selectedFacility = facility.find(
+                    (r: any) => r.facility?.facility_key === e.target.value
+                  );
+
+                  if (selectedFacility) {
+                    setForm((prev) => ({
+                      ...prev,
+                      facility_key: e.target.value,
+                      report_type: selectedFacility.facility?.category || prev.report_type, // set report_type sesuai category
+                    }));
+                  }
+                }}
+              >
+                <option value="">-- Pilih Fasilitas --</option>
+                {facility?.map((r: any) => (
+                  <option
+                    key={r.item?._id} 
+                    value={r.facility?.facility_key}
+                  >
+                    {r.item?.name} — {r.facility?.name} ({r.facility?.category})
+                  </option>
+                ))}
+              </select>
+
+            </div>
+
             {/* Tipe Kerusakan */}
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Tipe Kerusakan
-            </label>
-            <select
-              value={form.broken_type}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, broken_type: e.target.value }))
-              }
-              className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
-            >
-              <option value="">-- Tipe Kerusakan --</option>
-              <option value="R">Ringan</option>
-              <option value="S">Sedang</option>
-              <option value="B">Berat</option>
-            </select>
+            <div>
 
+              <label className="block mb-2 text-sm font-medium text-gray-700">
+                Tipe Kerusakan
+              </label>
+              <select
+                value={form.broken_type}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, broken_type: e.target.value }))
+                }
+                className="w-full border rounded-lg p-2 mb-4 text-gray-700 text-sm"
+              >
+                <option value="">-- Tipe Kerusakan --</option>
+                <option value="R">Ringan</option>
+                <option value="S">Sedang</option>
+                <option value="B">Berat</option>
+              </select>
 
+            </div>
 
             {/* Penjelasan Kerusakan */}
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Penjelasan Kerusakan
-            </label>
-            <textarea
-              value={form.broken_des}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, broken_des: e.target.value }))
-              }
-              className="w-full border rounded-lg p-2 mb-4 text-gray-700 placeholder-gray-500 text-sm"
-              placeholder="Deskripsi kerusakan..."
-              rows={3}
-            />
+            <div>
+
+              <label className="block mb-2 text-sm font-medium text-gray-700">
+                Penjelasan Kerusakan
+              </label>
+              <textarea
+                value={form.broken_des}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, broken_des: e.target.value }))
+                }
+                className="w-full border rounded-lg p-2 mb-4 text-gray-700 placeholder-gray-500 text-sm"
+                placeholder="Deskripsi kerusakan..."
+                rows={3}
+              />
+
+            </div>
+
           </>
         )}
 

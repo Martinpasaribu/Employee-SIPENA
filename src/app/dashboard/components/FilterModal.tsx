@@ -69,6 +69,7 @@ export default function FilterModal({ show, onClose, filters, onFilterChange }: 
             <option value="BK">Bangunan Kantor</option>
             <option value="M">Mesin</option>
             <option value="BL">Bangunan Lainnya</option>
+            <option value="K">Komplain</option>
           </select>
         </div>
       </div>
