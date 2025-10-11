@@ -203,7 +203,7 @@ export default function ReportList({ reports, onReportClick, onPreviewImage, pre
                             <p className="text-xs text-green-600 font-bold uppercase tracking-widest">
                             {TypeReport(r.report_type).label}
                             </p>
-                            <p className="text-lg font-extrabold text-slate-700 leading-tight mt-1">
+                            <p className="text-sm md:text-md font-extrabold text-slate-700 leading-tight mt-1">
                             # {r.report_code || (r._id ? r._id.substring(r._id.length - 6).toUpperCase() : i + 1)}
                             </p>
                         </div>
